@@ -1,0 +1,823 @@
+{
+	"info": {
+		"_postman_id": "e5d32721-cb30-4bce-b842-9e16515e455d",
+		"name": "SkorikAS ТЗ AgentApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get_Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(200)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"token\", \"Token \" + jsonData.token);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\" : \"qa@qa.qa\",\r\n  \"password\" : \"111\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/users/obtain-token",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"users",
+						"obtain-token"
+					]
+				},
+				"description": "# TEST"
+			},
+			"response": []
+		},
+		{
+			"name": "add_Driver1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(201)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"driver\", jsonData.id);\r",
+							"};\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n  \"first_name\": \"АААААА\",\r\n  \"last_name\": \"АААААА\",\r\n  \"patronymic\": \"ААААААААА\",\r\n  \"birth_date\": \"1983-11-19\",\r\n  \"driving_experience_started\": \"2007-10-10\",\r\n  \"driver_licenses\": [\r\n    {\r\n      \"credential_type\": \"DRIVER_LICENSE\",\r\n      \"number\": \"012345\",\r\n      \"series\": \"1234\",\r\n      \"issue_date\": \"2007-10-10\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/insured_objects/drivers",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_Driver2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(201)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"let driver_temp = pm.environment.get(\"driver\");\r",
+							"pm.environment.set(\"driver\", driver_temp + '\" , \"'+ jsonData.id);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n  \"first_name\": \"ББББББ\",\r\n  \"last_name\": \"ББББББББ\",\r\n  \"patronymic\": \"БББББББ\",\r\n  \"birth_date\": \"1983-11-19\",\r\n  \"driving_experience_started\": \"2007-10-10\",\r\n  \"driver_licenses\": [\r\n    {\r\n      \"credential_type\": \"DRIVER_LICENSE\",\r\n      \"number\": \"013456\",\r\n      \"series\": \"4321\",\r\n      \"issue_date\": \"2005-10-10\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/insured_objects/drivers",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_Driver3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(201)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"let driver_temp = pm.environment.get(\"driver\");\r",
+							"pm.environment.set(\"driver\", driver_temp + '\" , \"'+ jsonData.id);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n  \"first_name\": \"ПППППППП\",\r\n  \"last_name\": \"ППППППППП\",\r\n  \"patronymic\": \"ПППППППП\",\r\n  \"birth_date\": \"1983-11-19\",\r\n  \"driving_experience_started\": \"2007-10-10\",\r\n  \"driver_licenses\": [\r\n    {\r\n      \"credential_type\": \"DRIVER_LICENSE\",\r\n      \"number\": \"013346\",\r\n      \"series\": \"4321\",\r\n      \"issue_date\": \"2003-10-10\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/insured_objects/drivers",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_owner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(201)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"owner\", jsonData.person);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"last_name\": \"ЫЫЫЫЫЫЫ\",\r\n  \"first_name\": \"ЫЫЫЫЫ\",\r\n  \"patronymic\": \"ЫЫЫЫЫЫЫЫЫЫ\",\r\n  \"gender\": \"M\",\r\n  \"birth_date\": \"1983-11-19\",\r\n  \"credential\": [\r\n    {\r\n      \"credential_type\": \"RUSSIAN_INTERNAL_PASSPORT\",\r\n      \"issue_date\": \"2017-03-08\",\r\n      \"issue_point\": \"УФМС\",\r\n      \"issue_point_code\": \"123-456\",\r\n      \"number\": \"123456\",\r\n      \"series\": \"1234\"\r\n    }\r\n  ],\r\n  \"address\": [\r\n    {\r\n      \"address_query\": \"г Санкт-Петербург, г Ломоносов, ул Швейцарская, д 10 к 10, кв 11\",\r\n      \"address_type\": \"LEGAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7800000000000\",\r\n      \"city_kladr_id\": \"7800000600000\"\r\n    },\r\n    {\r\n      \"address_query\": \"г Санкт-Петербург, г Ломоносов, ул Швейцарская, д 10 к 10, кв 11\",\r\n      \"address_type\": \"ACTUAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7800000000000\",\r\n      \"city_kladr_id\": \"7800000600000\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/insured_objects/owners/natural_persons",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"owners",
+						"natural_persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_insured",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"if (pm.response.to.have.status(201)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"insured\", jsonData.person);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"last_name\": \"ЕЕЕЕЕЕЕЕЕЕЕ\",\r\n  \"first_name\": \"ЕЕЕЕЕЕЕЕЕ\",\r\n  \"patronymic\": \"ЕЕЕЕЕЕЕЕЕЕ\",\r\n  \"gender\": \"M\",\r\n  \"birth_date\": \"1983-11-19\",\r\n   \r\n   \"contact\": [\r\n            {\r\n                \"contact_type\": \"EMAIL\",\r\n                \"data\": \"test@test.ru\",\r\n                \"comment\": null\r\n            },\r\n            {\r\n                \"contact_type\": \"PHONE\",\r\n                \"data\": \"+7 (111) 222-33-44\",\r\n                \"comment\": null\r\n            }\r\n        ],\r\n   \r\n   \"credential\": [\r\n    {\r\n      \"credential_type\": \"RUSSIAN_INTERNAL_PASSPORT\",\r\n      \"issue_date\": \"2017-03-08\",\r\n      \"issue_point\": \"УФМС\",\r\n      \"issue_point_code\": \"123-456\",\r\n      \"number\": \"123456\",\r\n      \"series\": \"1234\"\r\n      \r\n    }\r\n  ],\r\n  \"address\": [\r\n    {\r\n      \"address_query\": \"г Санкт-Петербург, г Ломоносов, ул Швейцарская, д 10 к 10, кв 11\",\r\n      \"address_type\": \"LEGAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7800000000000\",\r\n      \"city_kladr_id\": \"7800000600000\"\r\n    },\r\n    {\r\n      \"address_query\": \"г Санкт-Петербург, г Ломоносов, ул Швейцарская, д 10 к 10, кв 11\",\r\n      \"address_type\": \"ACTUAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7800000000000\",\r\n      \"city_kladr_id\": \"7800000600000\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/insured_objects/insurants/natural_persons",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"insurants",
+						"natural_persons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_car_get_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(201)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"car\", jsonData.id);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \r\n     \"engine_power\" : 122,\r\n     \"number_plate\": \"H322HK26\",\r\n     \"manufacturing_year\": 2008,\r\n     \"vin_number\" : \"WVWZZZ3CZ9P026628\", \r\n     \"car_body_number\": \"WVWZZZ3CZ9P026628\",\r\n     \"chassis_number\": \"WVWZZZ3CZ9P026628\",        \r\n     \"max_mass\": 750.0,\r\n     \"car_type\": \"B\",\r\n      \r\n\r\n    \"credential\": [\r\n    {\r\n      \"credential_type\": \"VEHICLE_REGISTRATION\",\r\n      \"issue_date\": \"2012-06-28\",\r\n      \"number\": \"972495\",\r\n      \"series\": \"23УК\"\r\n    }\r\n  ]\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/dicts/car_model",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"dicts",
+						"car_model"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(201)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"car\", jsonData.id);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"car_model_id\" : \"425016566\",\r\n     \"engine_power\" : 122,\r\n     \"number_plate\": \"Н322НК26\",\r\n     \"manufacturing_year\": 2008,\r\n     \"vin_number\" : \"WVWZZZ3CZ9P026628\",      \r\n     \"has_trailer\": false,   \r\n     \"max_mass\": 750.0,\r\n     \"car_type\": \"B\",\r\n      \r\n\r\n    \"credential\": [\r\n    {\r\n      \"credential_type\": \"VEHICLE_REGISTRATION\",\r\n      \"issue_date\": \"2010-10-01\",\r\n      \"number\": \"972495\",\r\n      \"series\": \"23УК\"\r\n    }\r\n  ]\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/insured_objects/cars",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_object_vs_suchnost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(201)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"InsuredObject\", jsonData.id);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"drivers\" : [\"{{driver}}\"],\r\n  \"owner\" : \"{{owner}}\",\r\n  \"car\" : \"{{car}}\",\r\n  \"insurant\" : \"{{insured}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/insured_objects/",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"insured_objects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_car_get_insurance_period",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \r\n     \"engine_power\" : 122,\r\n     \"number_plate\": \"H322HK26\",\r\n     \"manufacturing_year\": 2008,\r\n     \"vin_number\" : \"WVWZZZ3CZ9P026628\", \r\n     \"car_body_number\": \"WVWZZZ3CZ9P026628\",\r\n     \"chassis_number\": \"WVWZZZ3CZ9P026628\",        \r\n     \"max_mass\": 750.0,\r\n     \"car_type\": \"B\",\r\n      \r\n\r\n    \"credential\": [\r\n    {\r\n      \"credential_type\": \"VEHICLE_REGISTRATION\",\r\n      \"issue_date\": \"2012-06-28\",\r\n      \"number\": \"972495\",\r\n      \"series\": \"23УК\"\r\n    }\r\n  ]\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/dicts/insurance_period",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"dicts",
+						"insurance_period"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_car_get_target_of_using",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \r\n     \"engine_power\" : 122,\r\n     \"number_plate\": \"H322HK26\",\r\n     \"manufacturing_year\": 2008,\r\n     \"vin_number\" : \"WVWZZZ3CZ9P026628\", \r\n     \"car_body_number\": \"WVWZZZ3CZ9P026628\",\r\n     \"chassis_number\": \"WVWZZZ3CZ9P026628\",        \r\n     \"max_mass\": 750.0,\r\n     \"car_type\": \"B\",\r\n      \r\n\r\n    \"credential\": [\r\n    {\r\n      \"credential_type\": \"VEHICLE_REGISTRATION\",\r\n      \"issue_date\": \"2012-06-28\",\r\n      \"number\": \"972495\",\r\n      \"series\": \"23УК\"\r\n    }\r\n  ]\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/dicts/target_of_using",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"dicts",
+						"target_of_using"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_contract",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(200)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"agreement_id\", jsonData.id);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"valid_from\" : \"2021-09-09\",\r\n\"valid_to\" : \"2022-09-08\",\r\n\"insurance_period\" : \"8\",\r\n\"target_of_using\" : \"11\",\r\n\"drivers_ids\":[\"{{driver}}\"],\r\n\"engine_power\" : 211,\r\n\"max_mass\":750,\r\n\"seats_count\" : 5,\r\n\"car_type\" : \"B\",\r\n\"credential_issue_date\":\"2010-10-10\",\r\n\"owner_registration\" : {\"address_query\": \"г Санкт-Петербург, г Ломоносов, ул Швейцарская, д 10 к 10, кв 11\",\"address_type\": \"LEGAL_ADDRESS\",\r\n      \"region_kladr_id\": \"7800000000000\",\r\n      \"city_kladr_id\": \"7800000600000\"\r\n      \r\n}\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/v3/agreements/calculations",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v3",
+						"agreements",
+						"calculations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_contract",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"if (pm.response.to.have.status(200)) {\r",
+							"let jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"agreement_id\", jsonData.id);\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "insu",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"insured_object\" : \"{{InsuredObject}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/agreements/{{agreement_id}}",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"agreements",
+						"{{agreement_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "full_payment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let strah = [\r",
+							"    'ZETTA',\r",
+							"    'ALPHA_STRAH',\r",
+							"    'SDS',\r",
+							"    'RENAISSANCE',\r",
+							"    'RGS',\r",
+							"    'SNGI',\r",
+							"    'UGORIA',\r",
+							"    'INGOSSTRAH',\r",
+							"    'TINKOFF'\r",
+							"];\r",
+							"\r",
+							"let i = 6;\r",
+							"pm.environment.set(\"ins_company_code\", strah[i]);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{http_schema}}://{{host}}/{{api_version}}/agreements/{{agreement_id}}/results/{{ins_company_code}}",
+					"protocol": "{{http_schema}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{api_version}}",
+						"agreements",
+						"{{agreement_id}}",
+						"results",
+						"{{ins_company_code}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "driver",
+			"value": ""
+		}
+	]
+}
